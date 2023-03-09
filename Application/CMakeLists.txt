@@ -1,0 +1,6 @@
+include_directories("${RE_APPLICATION_DIR}/include")
+if (WIN32)
+	add_library(Application ApplicationModule.cpp WindowApplication.cpp)
+else()
+	add_library(Application ApplicationModule.cpp EmptyApplication.cpp)
+endif()
