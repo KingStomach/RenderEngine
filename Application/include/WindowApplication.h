@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseApplication.h"
+#include <Windows.h>
 
 namespace REApplication
 {
@@ -12,5 +13,12 @@ namespace REApplication
 		virtual int createWindow();
 		virtual void destroyWindow();
 		virtual void render();
+
+	private:
+		HINSTANCE m_instance;
+		HWND m_RenderWnd;
+		ATOM registerClass();
+		static LRESULT CALLBACK callback(HWND, UINT, WPARAM, LPARAM);
+		BOOL initInstance(int nCmdShow);
 	};
 };

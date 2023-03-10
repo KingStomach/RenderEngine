@@ -3,7 +3,7 @@
 
 namespace RenderEngine
 {
-    Interface IRuntimeModule
+    class IRuntimeModule
     {
     public:
         IRuntimeModule() {};
