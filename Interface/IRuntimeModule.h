@@ -1,5 +1,6 @@
 #pragma once
 #include "Interface.h"
+#include <thread>
 
 namespace RenderEngine
 {
@@ -11,7 +12,9 @@ namespace RenderEngine
 
         virtual int Initialize() = 0;
         virtual void Finalize() = 0;
-        virtual void Tick() {};
+        void Tick() { m_thread.join(); };
+    protected:
+        std::thread m_thread;
     private:
         DISALLOW_COPY_AND_MOVE(IRuntimeModule);
     };

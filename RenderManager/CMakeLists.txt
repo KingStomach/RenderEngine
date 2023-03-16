@@ -1,0 +1,1 @@
+include_directories("${RE_RENDER_MANAGER_DIR}/include")
