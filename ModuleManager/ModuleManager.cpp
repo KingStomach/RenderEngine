@@ -1,9 +1,8 @@
 #include "ModuleManager.h"
-#include "ApplicationModule.h"
 
 RenderEngine::ModuleManger::ModuleManger()
 {
-	m_modules.emplace_back(std::make_unique<ApplicationModule>());
+	//m_modules.emplace_back(std::make_unique<ApplicationModule>());
 }
 
 int RenderEngine::ModuleManger::Initialize()
@@ -25,11 +24,8 @@ void RenderEngine::ModuleManger::Finalize()
 	return;
 }
 
-void RenderEngine::ModuleManger::Tick()
+RenderEngine::ModuleManger& RenderEngine::ModuleManger::getInstance()
 {
-	for (auto it = m_modules.begin(); it != m_modules.end(); ++it)
-	{
-		(*it)->Tick();
-	}
-	return;
+	static ModuleManger manager;
+	return manager;
 }

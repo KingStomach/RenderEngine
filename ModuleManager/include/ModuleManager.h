@@ -13,7 +13,7 @@ namespace RenderEngine
 
 		virtual int Initialize();
 		virtual void Finalize();
-		virtual void Tick();
+		static ModuleManger& getInstance();
 
 	private:
 		std::vector<std::unique_ptr<IRuntimeModule>> m_modules;

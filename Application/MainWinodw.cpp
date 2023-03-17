@@ -77,7 +77,7 @@ LRESULT CALLBACK REApplication::MainWindow::callback(HWND hWnd, UINT message, WP
 	return 0;
 }
 
-void REApplication::MainWindow::loop()
+int REApplication::MainWindow::loop()
 {
 	MSG msg;
 	while (GetMessage(&msg, nullptr, 0, 0) > 0)
@@ -85,4 +85,5 @@ void REApplication::MainWindow::loop()
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 	}
+	return 0;
 }
