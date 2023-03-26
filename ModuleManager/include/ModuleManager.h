@@ -1,21 +1,27 @@
 #pragma once
 #include "IRuntimeModule.h"
-#include <memory>
-#include <vector>
+#include "ModuleCommand.h"
+#include "RenderManager.h"
 
-namespace RenderEngine
+MATCH_MODULE_AND_COMMAND(REModuleManager, ModuleManger, ModuleCommand)
+
+namespace REModuleManager
 {
-	class ModuleManger : public IRuntimeModule
+	class ModuleManger : public RenderEngine::IRuntimeModule<ModuleManger, ModuleCommand>
 	{
 	public:
-		ModuleManger();
+		constexpr ModuleManger() : IRuntimeModule<ModuleManger, ModuleCommand>() {};
 		virtual ~ModuleManger() {};
-
-		virtual int Initialize();
-		virtual void Finalize();
-		virtual void Tick();
+		static ModuleManger& getInstance();
 
 	private:
-		std::vector<std::unique_ptr<IRuntimeModule>> m_modules;
+		RERenderManager::RenderManager m_render_mamanger;
+
+		int InitializeImpl();
+		void FinalizeImpl();
+		void TickImpl();
+
+		friend class IRuntimeModule<ModuleManger, ModuleCommand>;
 	};
+
 };
