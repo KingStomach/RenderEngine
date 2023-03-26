@@ -1,31 +1,34 @@
 #include "ModuleManager.h"
+#include "RenderManager.h"
 
-RenderEngine::ModuleManger::ModuleManger()
+int REModuleManager::ModuleManger::InitializeImpl()
 {
-	//m_modules.emplace_back(std::make_unique<ApplicationModule>());
-}
-
-int RenderEngine::ModuleManger::Initialize()
-{
-	for (auto it = m_modules.begin(); it != m_modules.end(); ++it)
-	{
-		if ((*it)->Initialize())
-			return 1;
-	}
+	m_thread = std::thread(&ModuleManger::runThread, this);
+	m_state = RenderEngine::MODULE_STATE::LOOPING;
+	if (m_render_mamanger.Initialize())
+		return 1;
 	return 0;
 }
 
-void RenderEngine::ModuleManger::Finalize()
+void REModuleManager::ModuleManger::FinalizeImpl()
 {
-	for (auto it = m_modules.rbegin(); it != m_modules.rend();++it)
-	{
-		(*it)->Initialize();
-	}
+	m_render_mamanger.Finalize();
 	return;
 }
 
-RenderEngine::ModuleManger& RenderEngine::ModuleManger::getInstance()
+REModuleManager::ModuleManger& REModuleManager::ModuleManger::getInstance()
 {
 	static ModuleManger manager;
 	return manager;
+}
+
+void REModuleManager::ModuleManger::TickImpl()
+{
+	if (m_pipe.empty())
+		return;
+	MCommand command;
+	if (!m_pipe.try_pop(command))
+		return;
+
+	return;
 }
