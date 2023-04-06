@@ -19,3 +19,29 @@ namespace Space { class Class; };
 #define MATCH_MODULE_AND_COMMAND(Space, Module, Command) \
 DECLARE_CLASS(Space, Module) \
 namespace RenderEngine { template<> struct is_moudle_command_match<Space::Module, Space::Command> : std::true_type {}; }
+
+namespace RenderEngine
+{
+	template <class T>
+	class Single
+	{
+	public:
+		virtual ~Single() {}
+
+		static T& instance()
+		{
+			static T t;
+			return t;
+		}
+	protected:
+		Single() {};
+	private:
+		DISALLOW_COPY_AND_MOVE(Single)
+	};
+}
+
+#ifdef GAME_ENGINE_ASSERT_ENABLE
+inline void render_engine_assert(bool expression) { if (expression) __debugbreak(); }
+#else
+inline void render_engine_assert() {}
+#endif // GAME_ENGINE_ASSERT_ENABLE
