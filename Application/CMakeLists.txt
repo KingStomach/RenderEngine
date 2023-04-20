@@ -1,18 +1,12 @@
-project (RenderApplication)
-
-find_package(OpenGL REQUIRED)
-message("OpenGL found: ${OpenGL_FOUND}")
+project (RenderEngine)
 
 include_directories("${PROJECT_SOURCE_DIR}/include")
-add_library(${PROJECT_NAME} "source/GameApplication.cpp" "source/Winodw.cpp")
+aux_source_directory("${PROJECT_SOURCE_DIR}/source" DIR_SRCS)
 
-target_link_libraries(${PROJECT_NAME} glfw)
-target_link_libraries(${PROJECT_NAME} glad)
-target_link_libraries(${PROJECT_NAME} OpenGL::GL)
+message("Render Manager found: ${RENDER_MANAGER_INCLUDE_DIR}")
 
-message("glad found: ${GLAD_INCLUDE_DIR}")
-message("glfw found: ${GLFW_INCLUDE_DIR}")
+add_executable(${PROJECT_NAME} ${DIR_SRCS})
 
-target_include_directories(${PROJECT_NAME} PUBLIC ${GLAD_INCLUDE_DIR})
-target_include_directories(${PROJECT_NAME} PUBLIC ${GLFW_INCLUDE_DIR})
+target_link_libraries(${PROJECT_NAME} RenderManager)
 target_include_directories(${PROJECT_NAME} PUBLIC ${RENDER_TOOL_INCLUDE_DIR})
+target_include_directories(${PROJECT_NAME} PUBLIC ${RENDER_MANAGER_INCLUDE_DIR})

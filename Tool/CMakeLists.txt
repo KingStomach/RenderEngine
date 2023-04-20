@@ -1,2 +1,5 @@
 project(RenderTool)
 set(RENDER_TOOL_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/include" CACHE STRING INTERNAL FORCE)
+include_directories("${PROJECT_SOURCE_DIR}/include")
+#aux_source_directory("${PROJECT_SOURCE_DIR}/source" DIR_SRCS)
+#add_library(${PROJECT_NAME} ${DIR_SRCS})

@@ -10,13 +10,5 @@ endif()
 
 add_subdirectory(Application)
 add_subdirectory(External)
+add_subdirectory(RenderManager)
 add_subdirectory(Tool)
-
-add_executable(${PROJECT_NAME} main.cpp)
-
-target_link_libraries(${PROJECT_NAME} RenderApplication)
-
-#add_subdirectory(ModuleManager)
-#add_subdirectory(RenderManager)
-#add_executable(RenderEngine "Application/main.cpp")
-#target_link_libraries(RenderEngine Application ModuleManager)

@@ -8,7 +8,7 @@
 #define Window WindowsWindow
 #endif
 
-namespace REApplication
+namespace RenderManager
 {
 	struct WindwoConfig
 	{
@@ -48,9 +48,9 @@ namespace REApplication
 		virtual ~WindowsWindow() { glfwDestroyWindow(m_window); }
 
 		static WindowsWindow createWindow(const WindwoConfig& config = WindwoConfig()) { return WindowsWindow(config); }
-		static int initWindow() { return glfwInit(); }
 
 		explicit operator bool() const { return m_window; }
+		GLFWwindow* get() const { return m_window; }
 
 	private:
 		GLFWwindow* m_window;
@@ -59,6 +59,7 @@ namespace REApplication
 		bool closeImpl() { return glfwWindowShouldClose(m_window); }
 		void SetVSyncImpl(bool option) { glfwSwapInterval(option); }
 
+		DISALLOW_COPY_AND_MOVE(WindowsWindow);
 		friend class Base;
 	};
 }

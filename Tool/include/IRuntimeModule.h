@@ -8,7 +8,7 @@ namespace RenderEngine
     {
     public:
         IRuntimeModule() {}
-        virtual ~IRuntimeModule() {}
+        ~IRuntimeModule() {}
 
         bool initialize() { return static_cast<Derived*>(this)->initializeImpl(); }
         void finalize() { static_cast<Derived*>(this)->finalizeImpl(); }
