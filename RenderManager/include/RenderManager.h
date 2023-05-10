@@ -1,23 +1,24 @@
 #pragma once
 #include "IRuntimeModule.h"
-#include "RenderCommand.h"
+#include "RenderTask.h"
 
-MATCH_MODULE_AND_COMMAND(RERenderManager, RenderManager, RenderCommand)
-
-namespace RERenderManager
+namespace RenderManager
 {
-	class RenderManager : public RenderEngine::IRuntimeModule<RenderManager, RenderCommand>
+	class RenderManager : public RenderEngine::IRuntimeModule<RenderManager>
 	{
 	public:
-		constexpr RenderManager() : IRuntimeModule<RenderManager, RenderCommand>() {};
-		virtual ~RenderManager() {};
+		RenderManager() : Base() {}
+		~RenderManager() {}
+
+		auto render() { return m_task->run(); }
 
 	private:
-		int InitializeImpl();
-		void FinalizeImpl();
-		void TickImpl();
+		bool initializeImpl();
+		void finalizeImpl();
 
-		friend class IRuntimeModule<RenderManager, RenderCommand>;
+		std::unique_ptr<RenderTask> m_task;
+		std::unique_ptr<WindowsWindow> m_window;
+
+		friend class Base;
 	};
-
 }
